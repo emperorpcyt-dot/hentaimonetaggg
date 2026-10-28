@@ -1,3 +1,10 @@
+# Python 3.12+ / 3.14 fix: pyrogram needs an event loop to exist when it is imported
+import asyncio
+try:
+    asyncio.get_event_loop()
+except RuntimeError:
+    asyncio.set_event_loop(asyncio.new_event_loop())
+
 # fix for current pyrogram 
 from pyrogram import utils
 
@@ -110,3 +117,4 @@ class Bot(Client):
         except Exception:
             pass
         self.LOGGER(__name__).info("Bot stopped.")
+        
